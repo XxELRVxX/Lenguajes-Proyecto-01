@@ -14,7 +14,8 @@
 
 #define USUARIO_Y_PASSWORD_LEIDOS 2
 
-
+#define OPERACION_FALLIDA -1
+#define OPERACION_EXITOSA 0
 
 
 
