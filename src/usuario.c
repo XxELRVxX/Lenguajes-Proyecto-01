@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "usuario.h"
 #include <string.h>
+#include "usuario.h"
+#include "config.h"
 
 
 UsuarioAdministrador crear_usuario() {

@@ -1,7 +1,6 @@
 #ifndef USUARIO_H
 #define USUARIO_H
 
-#include "config.h"
 
 typedef struct {
     char *usuario;
