@@ -11,7 +11,7 @@ typedef struct {
 ListaSitios crear_lista_sitios();
 void agregar_sitio(ListaSitios *lista_sitios, Sitio nuevo_sitio);
 void liberar_lista_sitios(ListaSitios *lista_sitios);
-int buscar_sitio(ListaSitios *lista_sitios, const char* nombre_sitio);
+Sitio *buscar_sitio(ListaSitios *lista_sitios, const char* nombre_sitio);
 int cargar_sitios(ListaSitios *lista_sitios, const char *ruta_archivo);
 
 #endif //LISTA_SITIOS_H

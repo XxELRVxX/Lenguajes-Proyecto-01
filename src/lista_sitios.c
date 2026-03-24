@@ -36,13 +36,13 @@ void liberar_lista_sitios(ListaSitios *lista_sitios) {
 
 
 //Discutir si tilde y mayusculas diferencian una palabra. Ej: "Conexión","conexion","conexión"
-int buscar_sitio(ListaSitios *lista_sitios, const char *nombre_sitio) {
+Sitio *buscar_sitio(ListaSitios *lista_sitios, const char *nombre_sitio) {
     for (int i = 0; i < lista_sitios->cantidad; i++) {
         if (strcmp(lista_sitios->sitios[i].nombre,nombre_sitio) == 0) {
-            return OPERACION_EXITOSA;
+            return &lista_sitios->sitios[i];
         }
     }
-    return OPERACION_FALLIDA;
+    return NULL;
 }
 
 int cargar_sitios(ListaSitios *lista_sitios, const char *ruta_archivo) {
