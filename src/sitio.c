@@ -19,9 +19,11 @@ Sitio crear_sitio(const char *nombre, const char *ubicacion, const char *sitio_w
     } else {
         sitio.sitio_web = NULL;
     }
-
+    
+    sitio.lista_sectores = crear_lista_sectores();
     return sitio;  
 }
+
 void liberar_sitio(Sitio *sitio) {
     if (sitio->nombre) {
         free(sitio->nombre);
@@ -35,4 +37,12 @@ void liberar_sitio(Sitio *sitio) {
         free(sitio->sitio_web);
         sitio->sitio_web = NULL;
     }
+
+    liberar_lista_sectores(&sitio->lista_sectores);
+}
+
+void mostrar_sitio(const Sitio *sitio) {
+    printf("Sitio: %s | Ubicación: %s | Web: %s\n",
+           sitio->nombre,sitio->ubicacion,sitio->sitio_web ? sitio->sitio_web : "N/A");
+    mostrar_lista_sectores(&sitio->lista_sectores);
 }

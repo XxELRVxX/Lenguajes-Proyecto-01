@@ -13,16 +13,26 @@ ListaSitios crear_lista_sitios() {
     return lista;
 }
 
-void agregar_sitio(ListaSitios *lista_sitios, Sitio nuevo_sitio) {
-    if (buscar_sitio(lista_sitios, nuevo_sitio.nombre) != -1) {
-        liberar_sitio(&nuevo_sitio);
-        return;
+int agregar_sitio(ListaSitios *lista_sitios, Sitio *nuevo_sitio) {
+    if (buscar_sitio(lista_sitios, nuevo_sitio->nombre) != NULL) {
+        liberar_sitio(nuevo_sitio);
+        return OPERACION_FALLIDA_DUPLICADO; 
     }
-    lista_sitios->cantidad++;
-    lista_sitios->sitios = realloc(lista_sitios->sitios, lista_sitios->cantidad * sizeof(Sitio));
-    lista_sitios->sitios[lista_sitios->cantidad - 1] = nuevo_sitio;
 
+    Sitio *temp = realloc(lista_sitios->sitios, (lista_sitios->cantidad + 1) * sizeof(Sitio));
+    if (temp == NULL) {
+        liberar_sitio(nuevo_sitio);
+        return OPERACION_FALLIDA_MEMORIA; 
+    }
+
+    lista_sitios->sitios = temp;
+    lista_sitios->sitios[lista_sitios->cantidad] = *nuevo_sitio;
+    lista_sitios->cantidad++;
+
+    return OPERACION_EXITOSA;
 }
+
+
 
 void liberar_lista_sitios(ListaSitios *lista_sitios) {
     for (int i = 0; i < lista_sitios->cantidad; i++) {
@@ -35,7 +45,6 @@ void liberar_lista_sitios(ListaSitios *lista_sitios) {
 }
 
 
-//Discutir si tilde y mayusculas diferencian una palabra. Ej: "Conexión","conexion","conexión"
 Sitio *buscar_sitio(ListaSitios *lista_sitios, const char *nombre_sitio) {
     for (int i = 0; i < lista_sitios->cantidad; i++) {
         if (strcmp(lista_sitios->sitios[i].nombre,nombre_sitio) == 0) {
@@ -61,8 +70,14 @@ int cargar_sitios(ListaSitios *lista_sitios, const char *ruta_archivo) {
 
         if (nombre && ubicacion) {
             Sitio nuevo_sitio = crear_sitio(nombre,ubicacion,sitio_web);
-            agregar_sitio(lista_sitios, nuevo_sitio);
-
+            int resultado = agregar_sitio(lista_sitios, &nuevo_sitio);
+            if (resultado == OPERACION_EXITOSA) {
+                printf("Exito: El sitio '%s' se ha agregado con exito.\n", nombre);
+            } else if (resultado == OPERACION_FALLIDA_DUPLICADO) {
+                printf("Fallo: Ya existe un sitio llamado '%s'.\n", nombre);
+            } else if (resultado == OPERACION_FALLIDA_MEMORIA) {
+                printf("Fallo: Ocurrio un error al reservar la memoria del sito '%s'.\n", nombre);
+            }  
         } 
     }
     fclose(archivo);
