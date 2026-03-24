@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "asiento.h"
 #include "config.h"
 
@@ -31,12 +32,10 @@ void desocupar_asiento(Asiento *asiento) {
 }
 
 void informacion_asiento(const Asiento *asiento) {
-    printf("Numero de asiento: %s | ",
-    asiento->numero_asiento);
-    
+    printf("    %s ",asiento->numero_asiento);
     if (asiento->estado == ASIENTO_DISPONIBLE) {
-        printf("Disponible \n");
+        printf("[Disponible] \n");
     } else {
-        printf("Vendido \n");
+        printf("[Vendido] \n");
     }
 }

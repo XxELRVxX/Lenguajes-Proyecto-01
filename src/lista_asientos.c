@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "lista_asientos.h"
 #include "asiento.h"
 #include "config.h"
@@ -11,7 +12,7 @@ ListaAsientos crear_lista_asientos(int cantidad, char inicial) {
 
     for (int i = 0; i < cantidad; i++) {
         char numero_asiento[10];
-        sprintf("%c%d", inicial, i+1);
+        sprintf(numero_asiento,"%c%d", inicial, i+1);
         lista_asientos.asientos[i] = crear_asiento(numero_asiento);
     }
     return lista_asientos;
