@@ -5,18 +5,24 @@
 
 
 #define LARGO_MAXIMO_CARACTERES 256
+
+
+//Usuario
 #define ARCHIVO_USUARIO "data/usuario.txt"
 #define DESPLAZAMIENTO_CIFRADO 4
 #define ACCESO_CORRECTO 0
 #define PASSWORD_INCORRECTA 1
 #define USUARIO_INCORRECTO 2
-
-
 #define USUARIO_Y_PASSWORD_LEIDOS 2
 
+
+//General
 #define OPERACION_FALLIDA -1
 #define OPERACION_EXITOSA 0
 
 
+//Asiento
+#define ASIENTO_DISPONIBLE 0
+#define ASIENTO_VENDIDO 1
 
 #endif //CONFIG_H
