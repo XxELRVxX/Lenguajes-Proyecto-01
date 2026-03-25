@@ -34,5 +34,10 @@
 #define FECHA_INVALIDA -1
 #define FECHA_VALIDA 0
 
+//programa
+#define RUTA_ALMACENAMIENTO_EVENTOS "data/eventos.txt"
+#define RUTA_ALMACENAMIENTO_SITIOS  "data/sitios.txt"
+#define RUTA_ALMACENAMIENTO_FACTURAS "data/facturas.txt"
+
 
 #endif //CONFIG_H
