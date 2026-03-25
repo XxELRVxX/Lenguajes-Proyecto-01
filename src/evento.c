@@ -65,3 +65,16 @@ void estado_evento(const Evento *evento) {
         mostrar_lista_asientos(&sector->asientos);
     }
 }
+
+float obtener_precio_asiento(const Evento *evento, const Asiento *asiento) { {
+    char inicial = asiento->numero_asiento[0];
+    for (int i = 0; i<evento->cantidad_sectores; i++) {
+        Sector *sector = &evento->sitio->lista_sectores.sectores[i];
+        if (sector->inicial == inicial) {
+            return evento->montos_por_sector[i];
+        }
+    }
+    return 0.0f;
+}
+
+}

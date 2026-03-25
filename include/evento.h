@@ -19,5 +19,6 @@ Evento crear_evento(const char *nombre_evento, const char* productora,
 void liberar_evento(Evento *evento);
 void estado_evento(const Evento *evento);
 void mostrar_evento(const Evento *evento);
+float obtener_precio_asiento(const Evento *evento, const Asiento *asiento);
 
 #endif //EVENTO_H
