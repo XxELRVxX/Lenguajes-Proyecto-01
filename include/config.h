@@ -22,10 +22,14 @@
 #define OPERACION_FALLIDA_DUPLICADO 1
 #define OPERACION_FALLIDA_MEMORIA 2
 
-
-
 //Asiento
 #define ASIENTO_DISPONIBLE 0
 #define ASIENTO_VENDIDO 1
+
+//fecha
+#define ANIO_MINIMO 2026
+#define FECHA_INVALIDA -1
+#define FECHA_VALIDA 0
+
 
 #endif //CONFIG_H
