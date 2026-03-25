@@ -16,13 +16,13 @@ int agregar_sector(ListaSectores *lista, Sector *nuevo_sector) {
         return OPERACION_FALLIDA_DUPLICADO;
     }
 
-    Sector *temp = realloc(lista->sectores, (lista->cantidad_sectores + 1) * sizeof(Sector));
-    if (temp == NULL) {
+    Sector *temp_lista_sectores = realloc(lista->sectores, (lista->cantidad_sectores + 1) * sizeof(Sector));
+    if (temp_lista_sectores == NULL) {
         liberar_sector(nuevo_sector);
         return OPERACION_FALLIDA_MEMORIA;
     }
 
-    lista->sectores = temp;
+    lista->sectores = temp_lista_sectores;
     lista->sectores[lista->cantidad_sectores] = *nuevo_sector;
     lista->cantidad_sectores++;
 

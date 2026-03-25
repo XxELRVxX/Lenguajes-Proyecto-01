@@ -19,13 +19,13 @@ int agregar_sitio(ListaSitios *lista_sitios, Sitio *nuevo_sitio) {
         return OPERACION_FALLIDA_DUPLICADO; 
     }
 
-    Sitio *temp = realloc(lista_sitios->sitios, (lista_sitios->cantidad + 1) * sizeof(Sitio));
-    if (temp == NULL) {
+    Sitio *temp_lista_sitios = realloc(lista_sitios->sitios, (lista_sitios->cantidad + 1) * sizeof(Sitio));
+    if (temp_lista_sitios == NULL) {
         liberar_sitio(nuevo_sitio);
         return OPERACION_FALLIDA_MEMORIA; 
     }
 
-    lista_sitios->sitios = temp;
+    lista_sitios->sitios = temp_lista_sitios;
     lista_sitios->sitios[lista_sitios->cantidad] = *nuevo_sitio;
     lista_sitios->cantidad++;
 
