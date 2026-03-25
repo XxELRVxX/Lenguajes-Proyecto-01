@@ -26,6 +26,9 @@
 #define ASIENTO_DISPONIBLE 0
 #define ASIENTO_VENDIDO 1
 
+//Factura
+#define COSTO_SERVICIO_PORC 0.05f
+
 //fecha
 #define ANIO_MINIMO 2026
 #define FECHA_INVALIDA -1

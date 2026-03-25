@@ -18,6 +18,30 @@ ListaAsientos crear_lista_asientos(int cantidad, char inicial) {
     return lista_asientos;
 }
 
+ListaAsientos crear_lista_asientos_vacia() {
+    ListaAsientos lista;
+    lista.asientos = NULL;
+    lista.cantidad_asientos = 0;
+    return lista;
+}
+
+int agregar_asiento_a_lista(ListaAsientos *lista_asientos, Asiento *asiento) {
+    if (buscar_asiento(lista_asientos, asiento->numero_asiento) != NULL) {
+        liberar_asiento(asiento);
+        return OPERACION_FALLIDA_DUPLICADO;
+    }
+
+    Asiento *temp_lista_asientos = realloc(lista_asientos->asientos, (lista_asientos->cantidad_asientos + 1) * sizeof(Asiento));
+    if (temp_lista_asientos == NULL) {
+        liberar_asiento(asiento);
+        return OPERACION_FALLIDA_MEMORIA;
+    }
+    lista_asientos->asientos = temp_lista_asientos;
+    lista_asientos->asientos[lista_asientos->cantidad_asientos] = *asiento;
+    lista_asientos->cantidad_asientos++;
+    return OPERACION_EXITOSA;
+}
+
 void liberar_lista_asientos(ListaAsientos *lista_asientos) {
     for (int i = 0; i < lista_asientos->cantidad_asientos; i++) {
         liberar_asiento(&lista_asientos->asientos[i]);
@@ -46,6 +70,14 @@ Asiento *buscar_asiento(ListaAsientos *lista_asientos, const char *numero_asient
         }
     }
     return NULL; 
+}
+
+Asiento *obtener_asiento(ListaAsientos *lista_asientos, int indice) {
+    if (!lista_asientos || indice < 0 || indice >= lista_asientos->cantidad_asientos) {
+        return NULL;
+    } else {
+        return &lista_asientos->asientos[indice];
+    }
 }
 
 int contar_asientos_disponibles(const ListaAsientos *lista_asientos) {
