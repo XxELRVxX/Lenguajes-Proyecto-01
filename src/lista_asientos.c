@@ -72,7 +72,7 @@ Asiento *buscar_asiento(ListaAsientos *lista_asientos, const char *numero_asient
     return NULL; 
 }
 
-Asiento *obtener_asiento(ListaAsientos *lista_asientos, int indice) {
+Asiento *obtener_asiento(const ListaAsientos *lista_asientos, int indice) {
     if (!lista_asientos || indice < 0 || indice >= lista_asientos->cantidad_asientos) {
         return NULL;
     } else {

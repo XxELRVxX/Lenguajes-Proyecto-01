@@ -15,7 +15,7 @@ void liberar_lista_asientos(ListaAsientos *lista_asientos);
 void resetear_lista_asientos(ListaAsientos *lista_asientos);
 void mostrar_lista_asientos(const ListaAsientos *lista_asientos);
 Asiento *buscar_asiento(ListaAsientos *lista_asientos, const char *numero_asiento);
-Asiento *obtener_asiento(ListaAsientos *lista_asientos, int indice);
+Asiento *obtener_asiento(const ListaAsientos *lista_asientos, int indice);
 int contar_asientos_disponibles(const ListaAsientos *lista_asientos);
 
 #endif //LISTA_ASIENTOS_H
