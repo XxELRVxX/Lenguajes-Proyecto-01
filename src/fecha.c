@@ -40,3 +40,17 @@ int validar_fecha(int dia, int mes, int anio) {
     }
     return FECHA_VALIDA;
 }
+
+void mostrar_fecha(const Fecha *fecha) {
+    printf("%02d/%02d/%04d", fecha->dia, fecha->mes, fecha->anio);
+}
+
+int comparar_fechas(const Fecha *fecha1, const Fecha *fecha2) {
+    if (fecha1->anio != fecha2->anio) {
+        return fecha1->anio - fecha2->anio;
+    }
+    if (fecha1->mes != fecha2->mes) {
+        return fecha1->mes - fecha2->mes;
+    }
+    return fecha1->dia - fecha2->dia;
+}
