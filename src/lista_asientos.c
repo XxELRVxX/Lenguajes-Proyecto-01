@@ -48,6 +48,7 @@ void liberar_lista_asientos(ListaAsientos *lista_asientos) {
     }
     free(lista_asientos->asientos);
     lista_asientos->asientos = NULL;
+    lista_asientos->cantidad_asientos = 0;
 
 }
 
@@ -89,4 +90,17 @@ int contar_asientos_disponibles(const ListaAsientos *lista_asientos) {
         }
     }
     return disponibles;
+}
+
+ListaAsientos copiar_lista_asientos(const ListaAsientos *lista_original) {
+    ListaAsientos copia;
+    copia.cantidad_asientos = lista_original->cantidad_asientos;
+    copia.asientos = malloc(copia.cantidad_asientos * sizeof(Asiento));
+
+    for (int i = 0; i < copia.cantidad_asientos; i++) {
+        copia.asientos[i].numero_asiento = malloc(strlen(lista_original->asientos[i].numero_asiento) + 1);
+        strcpy(copia.asientos[i].numero_asiento, lista_original->asientos[i].numero_asiento);
+        copia.asientos[i].estado = ASIENTO_DISPONIBLE;
+    }
+    return copia;
 }

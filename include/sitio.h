@@ -12,5 +12,6 @@ typedef struct {
 Sitio crear_sitio(const char *nombre, const char* ubicacion, const char *sitio_web);
 void liberar_sitio(Sitio *sitio);
 void mostrar_sitio(const Sitio *sitio);
+int contar_asientos_sitio(const Sitio *sitio);
 
 #endif //SITIO_H

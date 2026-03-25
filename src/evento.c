@@ -17,6 +17,11 @@ Evento crear_evento(const char *nombre, const char *productora, Fecha fecha, Sit
     for (int i = 0; i < evento.cantidad_sectores; i++) {
         evento.montos_por_sector[i] = 0.0f;
     }
+
+    evento.asientos_por_sector = malloc(evento.cantidad_sectores * sizeof(ListaAsientos));
+    for (int i = 0; i<evento.cantidad_sectores; i++) {
+        evento.asientos_por_sector[i] = copiar_lista_asientos(&sitio->lista_sectores.sectores[i].asientos);
+    }
     return evento;
 }
 
@@ -29,6 +34,13 @@ void liberar_evento(Evento *evento) {
     }
     if(evento->montos_por_sector) {
         free(evento->montos_por_sector);
+    }
+
+    if (evento->asientos_por_sector) {
+        for (int i = 0; i < evento->cantidad_sectores; i++) {
+            liberar_lista_asientos(&evento->asientos_por_sector[i]);
+        }
+        free(evento->asientos_por_sector);
     }
     evento->cantidad_sectores = 0;
     evento->sitio = NULL;
@@ -51,8 +63,10 @@ void estado_evento(const Evento *evento) {
     printf("Estado del evento '%s':\n", evento->nombre_evento);
     for (int i = 0; i < evento->cantidad_sectores; i++) {
         Sector *sector = &evento->sitio->lista_sectores.sectores[i];
-        int disponibles = contar_asientos_disponibles(&sector->asientos);
-        int total = sector->cantidad_asientos;
+        ListaAsientos *lista = &evento->asientos_por_sector[i];
+
+        int disponibles = contar_asientos_disponibles(lista);
+        int total = lista->cantidad_asientos;
         int vendidos = total - disponibles;
         float recaudado = vendidos * evento->montos_por_sector[i];
 
@@ -62,11 +76,13 @@ void estado_evento(const Evento *evento) {
                vendidos,
                disponibles,
                recaudado);
-        mostrar_lista_asientos(&sector->asientos);
+
+        mostrar_lista_asientos(lista); 
     }
 }
 
-float obtener_precio_asiento(const Evento *evento, const Asiento *asiento) { {
+
+float obtener_precio_asiento(const Evento *evento, const Asiento *asiento) { 
     char inicial = asiento->numero_asiento[0];
     for (int i = 0; i<evento->cantidad_sectores; i++) {
         Sector *sector = &evento->sitio->lista_sectores.sectores[i];
@@ -75,6 +91,4 @@ float obtener_precio_asiento(const Evento *evento, const Asiento *asiento) { {
         }
     }
     return 0.0f;
-}
-
 }
