@@ -54,7 +54,7 @@ Sitio *buscar_sitio(ListaSitios *lista_sitios, const char *nombre_sitio) {
     return NULL;
 }
 
-int cargar_sitios(ListaSitios *lista_sitios, const char *ruta_archivo) {
+int cargar_sitios_por_lote(ListaSitios *lista_sitios, const char *ruta_archivo) {
     FILE *archivo = fopen(ruta_archivo, "r");
     if (!archivo) {
         return OPERACION_FALLIDA;
