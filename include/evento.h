@@ -11,6 +11,7 @@ typedef struct {
     Sitio *sitio;
     float *montos_por_sector;
     int cantidad_sectores;
+    ListaAsientos *asientos_por_sector;
 }Evento;
 
 Evento crear_evento(const char *nombre_evento, const char* productora,

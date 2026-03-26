@@ -24,10 +24,10 @@ Factura crear_factura(Evento *evento, const Fecha *fecha_compra,
     factura.subtotal = 0.0f;
 
     for (int i = 0; i < factura.cantidad_asientos; i++) {
-        const Asiento *a = obtener_asiento(asientos_comprados, i);
+        Asiento *asiento = obtener_asiento(asientos_comprados, i);
 
-        factura.asientos[i].numero_asiento = strdup(a->numero_asiento);
-        factura.asientos[i].costo = obtener_precio_asiento(evento, a);
+        factura.asientos[i].numero_asiento = strdup(asiento->numero_asiento);
+        factura.asientos[i].costo = obtener_precio_asiento(evento, asiento);
 
         factura.subtotal += factura.asientos[i].costo;
     }

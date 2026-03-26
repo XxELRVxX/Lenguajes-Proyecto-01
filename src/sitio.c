@@ -46,3 +46,11 @@ void mostrar_sitio(const Sitio *sitio) {
            sitio->nombre,sitio->ubicacion,sitio->sitio_web ? sitio->sitio_web : "N/A");
     mostrar_lista_sectores(&sitio->lista_sectores);
 }
+
+int contar_asientos_sitio(const Sitio *sitio) {
+    int total = 0;
+    for (int i = 0; i < sitio->lista_sectores.cantidad_sectores; i++) {
+        total += sitio->lista_sectores.sectores[i].asientos.cantidad_asientos;
+    }
+    return total;
+}

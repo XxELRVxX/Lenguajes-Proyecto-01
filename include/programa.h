@@ -4,6 +4,7 @@
 #include "lista_eventos.h"
 #include "lista_sitios.h"
 #include "lista_facturas.h"
+#include "cargar_guardar.h"
 #include "config.h"
 
 typedef struct {

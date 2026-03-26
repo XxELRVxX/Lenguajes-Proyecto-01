@@ -54,7 +54,21 @@ Sitio *buscar_sitio(ListaSitios *lista_sitios, const char *nombre_sitio) {
     return NULL;
 }
 
-int cargar_sitios(ListaSitios *lista_sitios, const char *ruta_archivo) {
+void mostrar_lista_sitios(const ListaSitios *lista_sitios) {
+    if (!lista_sitios || lista_sitios->cantidad == 0) {
+        printf("No hay sitios registrados.\n");
+        return;
+    }
+
+    printf("=== Lista de sitios ===\n");
+    for (int i = 0; i < lista_sitios->cantidad; i++) {
+        Sitio *sitio = &lista_sitios->sitios[i];
+        printf("Sitio #%d:\n", i + 1);
+        mostrar_sitio(sitio);
+    }
+}
+
+int cargar_sitios_por_lote(ListaSitios *lista_sitios, const char *ruta_archivo) {
     FILE *archivo = fopen(ruta_archivo, "r");
     if (!archivo) {
         return OPERACION_FALLIDA;

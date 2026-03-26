@@ -5,6 +5,7 @@
 
 
 #define LARGO_MAXIMO_CARACTERES 256
+#define BUFFER_LECTURA_LINEA 1000
 
 
 //Usuario
