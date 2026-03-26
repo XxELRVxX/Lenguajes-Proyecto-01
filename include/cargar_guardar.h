@@ -17,5 +17,6 @@ int guardar_facturas(const ListaFacturas *lista_facturas, const char *ruta);
 
 //Cargar datos
 int cargar_sitios(ListaSitios *lista_sitios, const char *ruta);
-
+int cargar_eventos(ListaEventos *lista_eventos, const ListaSitios *lista_sitios, const char *ruta);
+int cargar_facturas(ListaFacturas *lista_facturas, const ListaEventos *lista_eventos, const char *ruta);
 #endif //CARGAR_GUARDAR_H
