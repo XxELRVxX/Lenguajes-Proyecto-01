@@ -1,3 +1,1 @@
-La Gran via,Tournon,www.lagran.via 
-Centro de Eventos,Piuta 
-Galeria Turrialba,Turrialba,www.galeria.cr
+Estadio Nacional|San José|www.estadionacional.example,SECTOR|VIP|V|5,SECTOR|General|G|10

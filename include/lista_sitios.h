@@ -13,5 +13,6 @@ int agregar_sitio(ListaSitios *lista_sitios, Sitio *nuevo_sitio);
 void liberar_lista_sitios(ListaSitios *lista_sitios);
 Sitio *buscar_sitio(ListaSitios *lista_sitios, const char* nombre_sitio);
 int cargar_sitios(ListaSitios *lista_sitios, const char *ruta_archivo);
+void mostrar_lista_sitios(const ListaSitios *lista_sitios);
 
 #endif //LISTA_SITIOS_H
