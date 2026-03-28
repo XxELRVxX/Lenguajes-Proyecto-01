@@ -1,6 +1,14 @@
+/**
+ * @file cargar_guardar.c
+ * @brief Implementacion de funciones para cargar y guardar datos del sistema.
+ */
+
 #include "cargar_guardar.h"
 
-//auxiliar 
+/**
+ * @brief Elimina espacios en blanco al inicio y final de una cadena.
+ * @param str Cadena a limpiar.
+ */
 void trim(char *str) {
     char *final;
     while (*str == ' ' || *str == '\t') {
@@ -16,6 +24,12 @@ void trim(char *str) {
 }
 
 
+/**
+ * @brief Guarda la lista de sitios en un archivo.
+ * @param lista_sitios Puntero constante a la lista de sitios.
+ * @param ruta Ruta del archivo donde guardar.
+ * @return Codigo de exito o error.
+ */
 int guardar_sitios(const ListaSitios *lista_sitios, const char *ruta) {
     FILE *archivo = fopen(ruta,"w");
     if (!archivo) {
@@ -45,6 +59,12 @@ int guardar_sitios(const ListaSitios *lista_sitios, const char *ruta) {
     return OPERACION_EXITOSA;
 }
 
+/**
+ * @brief Guarda la lista de eventos en un archivo.
+ * @param lista_eventos Puntero constante a la lista de eventos.
+ * @param ruta Ruta del archivo donde guardar.
+ * @return Codigo de exito o error.
+ */
 int guardar_eventos(const ListaEventos *lista_eventos, const char *ruta) {
     FILE *archivo = fopen(ruta, "w");
     if (!archivo) {
@@ -85,7 +105,12 @@ int guardar_eventos(const ListaEventos *lista_eventos, const char *ruta) {
     return OPERACION_EXITOSA;
 }
 
-
+/**
+ * @brief Guarda la lista de facturas en un archivo.
+ * @param lista_facturas Puntero constante a la lista de facturas.
+ * @param ruta Ruta del archivo donde guardar.
+ * @return Codigo de exito o error.
+ */
 int guardar_facturas(const ListaFacturas *lista_facturas, const char *ruta) {
     FILE *archivo = fopen(ruta, "w");
     if (!archivo) {
@@ -122,6 +147,12 @@ int guardar_facturas(const ListaFacturas *lista_facturas, const char *ruta) {
     return OPERACION_EXITOSA;
 }
 
+/**
+ * @brief Carga la lista de sitios desde un archivo.
+ * @param lista_sitios Puntero a la lista de sitios.
+ * @param ruta Ruta del archivo a cargar.
+ * @return Codigo de exito o error.
+ */
 int cargar_sitios(ListaSitios *lista_sitios, const char *ruta) {
     FILE *archivo = fopen(ruta, "r");
     if (!archivo) {
@@ -221,6 +252,13 @@ int cargar_sitios(ListaSitios *lista_sitios, const char *ruta) {
     return OPERACION_EXITOSA;
 }
 
+/**
+ * @brief Carga la lista de eventos desde un archivo.
+ * @param lista_eventos Puntero a la lista de eventos.
+ * @param lista_sitios Puntero constante a la lista de sitios.
+ * @param ruta Ruta del archivo a cargar.
+ * @return Codigo de exito o error.
+ */
 int cargar_eventos(ListaEventos *lista_eventos, const ListaSitios *lista_sitios, const char *ruta) {
     FILE *archivo = fopen(ruta, "r");
     if (!archivo) {
@@ -390,7 +428,13 @@ int cargar_eventos(ListaEventos *lista_eventos, const ListaSitios *lista_sitios,
     return OPERACION_EXITOSA;
 }
 
-
+/**
+ * @brief Carga la lista de facturas desde un archivo.
+ * @param lista_facturas Puntero a la lista de facturas.
+ * @param lista_eventos Puntero constante a la lista de eventos.
+ * @param ruta Ruta del archivo a cargar.
+ * @return Codigo de exito o error.
+ */
 int cargar_facturas(ListaFacturas *lista_facturas, const ListaEventos *lista_eventos, const char *ruta) {
     FILE *archivo = fopen(ruta, "r");
     if (!archivo) {
@@ -432,7 +476,6 @@ int cargar_facturas(ListaFacturas *lista_facturas, const ListaEventos *lista_eve
             pos_cadena++;
         }
 
-        // Extraer nombre cliente
         char nombre_cliente[BUFFER_LECTURA_LINEA];
         i = 0;
         while (*pos_cadena && *pos_cadena != '|') {
@@ -443,7 +486,6 @@ int cargar_facturas(ListaFacturas *lista_facturas, const ListaEventos *lista_eve
             pos_cadena++;
         }
 
-        // Extraer nombre evento (hasta coma)
         char nombre_evento[BUFFER_LECTURA_LINEA];
         i = 0;
         while (*pos_cadena && *pos_cadena != ',') {
@@ -454,15 +496,12 @@ int cargar_facturas(ListaFacturas *lista_facturas, const ListaEventos *lista_eve
             pos_cadena++;
         }
 
-        // Parsear fecha
         Fecha fecha;
         sscanf(fecha_str, "%d/%d/%d", &fecha.dia, &fecha.mes, &fecha.anio);
 
-        // Buscar evento
         Evento *evento = buscar_evento((ListaEventos *)lista_eventos, nombre_evento);
         if (!evento) continue;
 
-        // Crear factura
         int id = atoi(id_str);
         Factura nueva_factura;
         nueva_factura.id = id;
