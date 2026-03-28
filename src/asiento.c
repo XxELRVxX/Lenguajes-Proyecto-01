@@ -10,7 +10,7 @@ Asiento crear_asiento(const char *numero_asiento) {
     strcpy(asiento.numero_asiento,numero_asiento);
     asiento.estado = ASIENTO_DISPONIBLE;
     return asiento;
-}
+}    
 
 void liberar_asiento(Asiento *asiento) {
     if(asiento->numero_asiento) {
