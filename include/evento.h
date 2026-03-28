@@ -17,14 +17,14 @@
  * @brief Estructura que representa un evento.
  */
 typedef struct {
-    char *nombre_evento;
-    char *productora;
-    Fecha fecha;
-    Sitio *sitio;
-    float *montos_por_sector;
-    int cantidad_sectores;
-    ListaAsientos *asientos_por_sector;
-}Evento;
+    char *nombre_evento; /**< Nombre del evento */
+    char *productora; /**< Productora del evento */
+    Fecha fecha; /**< Fecha del evento */
+    Sitio *sitio; /**< Sitio donde se realiza el evento */
+    float *montos_por_sector; /**< Precios por sector */
+    int cantidad_sectores; /**< Cantidad de sectores */
+    ListaAsientos *asientos_por_sector; /**< Listas de asientos por sector */
+} Evento;
 
 /**
  * @brief Crea un evento.
