@@ -1,11 +1,15 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <string.h>
+/**
+ * @file usuario.c
+ * @brief Implementacion funciones para el manejo de usuarios administradores.
+ */
+
 #include "usuario.h"
-#include "config.h"
 
 
+/**
+ * @brief Crea un usuario administrador vacio.
+ * @return UsuarioAdministrador inicializado.
+ */
 UsuarioAdministrador crear_usuario() {
     UsuarioAdministrador admin;
     admin.password = NULL;
@@ -13,6 +17,10 @@ UsuarioAdministrador crear_usuario() {
     return admin;
 }
 
+/**
+ * @brief Carga los datos de un usuario administrador.
+ * @param admin Puntero al usuario administrador.
+ */
 void cargar_usuario(UsuarioAdministrador *admin) {
     FILE *archivo = fopen(ARCHIVO_USUARIO, "r");
     if (!archivo) {
@@ -35,18 +43,13 @@ void cargar_usuario(UsuarioAdministrador *admin) {
     fclose(archivo);
 }
 
-void cifrar(char *cadena, int desplazamiento) {
-    for(int i = 0; cadena[i] != '\0'; i++) {
-        cadena[i] += desplazamiento;
-    }
-}
-
-void descifrar(char *cadena, int desplazamiento) {
-    for(int i = 0; cadena[i] != '\0'; i++) {
-        cadena[i] -= desplazamiento;
-    }
-}
-
+/**
+ * @brief Valida el acceso de un usuario.
+ * @param admin Puntero al usuario administrador.
+ * @param usuario_ingresado Nombre de usuario ingresado.
+ * @param password_ingresada Contraseña ingresada.
+ * @return 1 si es valido, 0 si no.
+ */
 int validar_acceso(UsuarioAdministrador *admin,const char *usuario_ingresado,
     const char *password_ingresada) {
         
@@ -68,6 +71,40 @@ int validar_acceso(UsuarioAdministrador *admin,const char *usuario_ingresado,
 
     free(password_descifrada);
     return resultado;
- 
-
 }
+
+/**
+ * @brief Cifra un texto usando desplazamiento.
+ * @param texto Texto a cifrar.
+ * @param desplazamiento Valor de desplazamiento.
+ */
+void cifrar(char *cadena, int desplazamiento) {
+    for(int i = 0; cadena[i] != '\0'; i++) {
+        cadena[i] += desplazamiento;
+    }
+}
+
+/**
+ * @brief Descifra un texto usando desplazamiento.
+ * @param texto Texto a descifrar.
+ * @param desplazamiento Valor de desplazamiento.
+ */
+void descifrar(char *cadena, int desplazamiento) {
+    for(int i = 0; cadena[i] != '\0'; i++) {
+        cadena[i] -= desplazamiento;
+    }
+}
+
+/**
+ * @brief Liberar la memoria asociada a un usuario
+ * @param usuario Puntero al usuario a liberar.
+ */
+void liberar_usuario(UsuarioAdministrador *usuario) {
+    if (usuario->password) {
+        free(usuario->password);
+    }
+    if (usuario->usuario) {
+        free(usuario->usuario);
+    }
+}
+
