@@ -35,9 +35,9 @@ int main(void) {
     Fecha fecha_evento = crear_fecha(25, 3, 2026);
     Evento evento = crear_evento("Concierto Rock", "LiveNation", fecha_evento, &programa.sitios.sitios[0]);
 
-    evento.montos_por_sector[0] = 150.0f; 
-    evento.montos_por_sector[1] = 50.0f;  
-
+    asignar_monto_sector(&evento, &evento.sitio->lista_sectores.sectores[0],150.0f);
+    asignar_monto_sector(&evento, &evento.sitio->lista_sectores.sectores[1],50.0f);
+    
   
     Asiento *a = buscar_asiento(&evento.asientos_por_sector[0], "V1");
     if (a) vender_asiento(a);

@@ -55,6 +55,16 @@ void estado_evento(const Evento *evento);
  */
 void mostrar_evento(const Evento *evento);
 
+
+
+/**
+ * @brief Asigna el monto a un sector especifico del evento.
+ * @param evento Puntero al evento.
+ * @param sector Puntero al sector.
+ * @param monto Monto a asignar.
+ */
+void asignar_monto_sector(Evento *evento, Sector *sector, float monto);
+
 /**
  * @brief Obtiene el precio de un asiento segun el sector.
  * @param evento Puntero constante al evento.
@@ -62,5 +72,7 @@ void mostrar_evento(const Evento *evento);
  * @return Precio del asiento.
  */
 float obtener_precio_asiento(const Evento *evento, const Asiento *asiento);
+
+
 
 #endif //EVENTO_H

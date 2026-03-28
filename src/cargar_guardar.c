@@ -344,7 +344,7 @@ int cargar_eventos(ListaEventos *lista_eventos, const ListaSitios *lista_sitios,
                 int cantidad = atoi(cantidad_str);
                 float monto = atof(monto_str);
 
-                nuevo_evento.montos_por_sector[indice_sector] = monto;
+                asignar_monto_sector(&nuevo_evento,&nuevo_evento.sitio->lista_sectores.sectores[indice_sector],monto);
                 nuevo_evento.asientos_por_sector[indice_sector] = crear_lista_asientos(cantidad, inicial);
             }
             else if (strncmp(pos_cadena, "ASIENTO|", 8) == 0 && indice_sector >= 0) {

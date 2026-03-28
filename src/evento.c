@@ -106,6 +106,22 @@ void mostrar_evento(const Evento *evento) {
 
 
 /**
+ * @brief Asigna el monto a un sector especifico del evento.
+ * @param evento Puntero al evento.
+ * @param sector Puntero al sector.
+ * @param monto Monto a asignar.
+ */
+void asignar_monto_sector(Evento *evento, Sector *sector, float monto) {
+    for (int i = 0; i < evento->cantidad_sectores; i++) {
+        if (strcmp(evento->sitio->lista_sectores.sectores[i].nombre, sector->nombre) == 0) {
+            evento->montos_por_sector[i] = monto;
+            break; // Si solo hay un sector con ese nombre, puedes salir del ciclo
+        }
+    }
+}
+
+
+/**
  * @brief Obtiene el precio de un asiento segun el sector.
  * @param evento Puntero constante al evento.
  * @param asiento Puntero constante al asiento.
