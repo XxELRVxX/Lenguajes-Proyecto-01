@@ -1,12 +1,20 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+/**
+ * @file factura.c
+ * @brief Implementacion de las funciones para el manejo de facturas.
+ */
 #include "factura.h"
-#include "config.h"
-#include "lista_asientos.h"
 
 static int factura_id_global = 1;
 
+/**
+ * @brief Crea una factura a partir de los datos proporcionados.
+ * @param evento Puntero al evento.
+ * @param fecha_compra Puntero a la fecha de compra.
+ * @param cliente_cedula Cedula del cliente.
+ * @param cliente_nombre Nombre del cliente.
+ * @param asientos_comprados Puntero a la lista de asientos comprados.
+ * @return Factura inicializada.
+ */
 Factura crear_factura(Evento *evento, const Fecha *fecha_compra,
                       const char *cliente_cedula, const char *cliente_nombre,
                       const ListaAsientos *asientos_comprados) {
@@ -38,7 +46,10 @@ Factura crear_factura(Evento *evento, const Fecha *fecha_compra,
     return factura;
 }
 
-
+/**
+ * @brief Muestra la informacion de la factura.
+ * @param factura Puntero constante a la factura.
+ */
 void mostrar_factura(const Factura *factura) {
     printf("Factura #%d\n", factura->id);
     printf("Fecha de compra: %02d/%02d/%04d\n", factura->fecha_compra.dia, factura->fecha_compra.mes, factura->fecha_compra.anio);
@@ -53,6 +64,10 @@ void mostrar_factura(const Factura *factura) {
     printf("Total: %.2f\n", factura->total);
 }
 
+/**
+ * @brief Libera la memoria asociada a una factura.
+ * @param factura Puntero a la factura a liberar.
+ */
 void liberar_factura(Factura *factura) {
     if (!factura) return;
 

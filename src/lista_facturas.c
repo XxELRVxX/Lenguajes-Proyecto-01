@@ -1,7 +1,14 @@
-#include <stdio.h>
-#include <stdlib.h>
+/**
+ * @file lista_facturas.c
+ * @brief Implementacion de las funciones para el manejo de listas de facturas.
+ */
+
 #include "lista_facturas.h"
 
+/**
+ * @brief Crea una lista de facturas vacia.
+ * @return ListaFacturas vacia.
+ */
 ListaFacturas crear_lista_facturas() {
     ListaFacturas lista;
     lista.facturas = NULL;
@@ -9,7 +16,12 @@ ListaFacturas crear_lista_facturas() {
     return lista;
 }
 
-
+/**
+ * @brief Agrega una factura a la lista.
+ * @param lista_facturas Puntero a la lista de facturas.
+ * @param factura Puntero a la factura a agregar.
+ * @return Codigo de exito o error.
+ */
 int agregar_factura(ListaFacturas *lista_facturas, Factura *factura) {
     if (buscar_factura(lista_facturas, factura->id) != NULL) {
         liberar_factura(factura);
@@ -36,6 +48,10 @@ Factura *buscar_factura(const ListaFacturas *lista, int id) {
     return NULL;
 }
 
+/**
+ * @brief Muestra la informacion de todas las facturas de la lista.
+ * @param lista_facturas Puntero constante a la lista de facturas.
+ */
 void mostrar_lista_facturas(const ListaFacturas *lista_facturas) {
     if (lista_facturas->cantidad_facturas == 0) {
         printf("No hay facturas registradas.\n");
@@ -51,6 +67,10 @@ void mostrar_lista_facturas(const ListaFacturas *lista_facturas) {
     }
 }
 
+/**
+ * @brief Libera la memoria de la lista de facturas.
+ * @param lista_facturas Puntero a la lista de facturas a liberar.
+ */
 void liberar_lista_facturas(ListaFacturas *lista_facturas) {
     for (int i = 0; i < lista_facturas->cantidad_facturas; i++) {
         liberar_factura(&lista_facturas->facturas[i]);
