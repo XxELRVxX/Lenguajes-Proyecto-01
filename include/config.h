@@ -40,5 +40,9 @@
 #define RUTA_ALMACENAMIENTO_SITIOS  "data/sitios.txt"
 #define RUTA_ALMACENAMIENTO_FACTURAS "data/facturas.txt"
 
+//leer numero
+#define ENTRADA_INVALIDA -1
+#define ENTRADA_VALIDA 1
+
 
 #endif //CONFIG_H

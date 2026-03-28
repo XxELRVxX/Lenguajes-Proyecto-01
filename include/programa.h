@@ -50,4 +50,41 @@ int guardar_programa(const Programa *programa);
  */
 int cargar_programa(Programa *programa);
 
+
+/**
+ * @brief Ejecuta el bucle principal del programa con el menu de navegacion.
+ * @param programa Puntero al programa inicializado.
+ */
+void ejecutar_programa(Programa *programa);
+
+/**
+ * @brief Muestra el menu administrativo, solicita autenticacion y gestiona las opciones.
+ * @param programa Puntero al programa.
+ */
+void menu_administrativo(Programa *programa);
+
+/**
+ * @brief Muestra el menu de opciones generales.
+ * @param programa Puntero al programa.
+ */
+void menu_general(Programa *programa);
+
+/**
+ * @brief Lee una opcion numerica del usuario desde el teclado.
+ * @return Opcion leida, o 0 si la entrada no es un numero valido.
+ */
+int leer_opcion();
+
+/**
+ * @brief Lee una cadena de caracteres desde stdin.
+ * @param buffer Buffer donde se almacenara la cadena leida.
+ * @param largo_cadena tamaño maximo del buffer.
+ */
+void leer_cadena(char *buffer, int largo_cadena);
+
+/**
+ * @brief Limpia la consola. Compatible con Windows y Linux.
+ */
+void limpiar_consola();
+
 #endif //PROGRAMA_H
