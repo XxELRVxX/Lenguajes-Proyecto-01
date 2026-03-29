@@ -87,7 +87,7 @@ static void top3_mes_anio_con_mas_eventos(const Programa *programa) {
     for (int a = 0; a < cantidad_anios; a++) {
         printf("\n  %d:\n", anios[a]);
 
-        ParMesAnio meses_anio[12];
+        ParMesAnio *meses_anio = malloc(cantidad_pares * sizeof(ParMesAnio));
         int cantidad_meses = 0;
         for (int i = 0; i < cantidad_pares; i++) {
             if (pares[i].anio == anios[a]) {
@@ -104,6 +104,7 @@ static void top3_mes_anio_con_mas_eventos(const Programa *programa) {
                 meses_anio[i].conteo,
                 meses_anio[i].conteo == 1 ? "" : "s");
         }
+        free(meses_anio);
     }
     printf("\n");
 }

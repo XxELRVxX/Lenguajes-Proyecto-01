@@ -68,7 +68,7 @@ void mostrar_lista_facturas(const ListaFacturas *lista_facturas) {
                factura->fecha_compra.anio);
         printf("  Cliente  : %s\n", factura->cliente_nombre);
         printf("  Subtotal : $%.2f\n", factura->subtotal);
-        printf("  Total    : $%.2f\n", factura->subtotal);
+        printf("  Total    : $%.2f\n", factura->total);
         printf("  ------------------------------\n");
     }
 }

@@ -112,6 +112,58 @@ void ejecutar_programa(Programa *programa) {
 }
 
 /**
+ * @brief Selecciona un evento y muestra su estado detallado por sector.
+ * @param programa Puntero al programa.
+ */
+static void estado_evento_menu(Programa *programa) {
+    if (programa->eventos.cantidad_eventos == 0) {
+        printf("No hay eventos registrados.\n");
+        printf("Presione Enter para continuar...");
+        getchar();
+        return;
+    }
+
+    mostrar_lista_eventos(&programa->eventos);
+    printf("Seleccione un evento (1-%d): ", programa->eventos.cantidad_eventos);
+    int indice = leer_indice_valido(1, programa->eventos.cantidad_eventos);
+    Evento *evento = &programa->eventos.eventos[indice - 1];
+
+    limpiar_consola();
+    printf("================================================\n");
+    printf("  Evento     : %s\n", evento->nombre_evento);
+    printf("  Productora : %s\n", evento->productora);
+    printf("  Sitio      : %s\n", evento->sitio->nombre);
+    printf("  Fecha      : %02d/%02d/%04d\n",
+        evento->fecha.dia, evento->fecha.mes, evento->fecha.anio);
+    printf("================================================\n");
+
+    for (int i = 0; i < evento->cantidad_sectores; i++) {
+        Sector *sector = &evento->sitio->lista_sectores.sectores[i];
+        ListaAsientos *lista = &evento->asientos_por_sector[i];
+        int disponibles = contar_asientos_disponibles(lista);
+        int vendidos = lista->cantidad_asientos - disponibles;
+        float recaudado = vendidos * evento->montos_por_sector[i];
+
+        printf("\n  Sector      : %s\n", sector->nombre);
+        printf("  Precio      : $%.2f\n", evento->montos_por_sector[i]);
+        printf("  Recaudado   : $%.2f\n", recaudado);
+        printf("  Vendidos    : %d\n", vendidos);
+        printf("  Disponibles : %d\n", disponibles);
+        printf("  Asientos    :\n");
+        for (int j = 0; j < lista->cantidad_asientos; j++) {
+            Asiento *asiento = &lista->asientos[j];
+            printf("    %s : %s\n",
+                asiento->numero_asiento,
+                asiento->estado == ASIENTO_DISPONIBLE ? "Disponible" : "Vendido");
+        }
+        printf("  ------------------------------------------------\n");
+    }
+    printf("================================================\n");
+    printf("\nPresione Enter para continuar...");
+    getchar();
+}
+
+/**
  * @brief Muestra el menu administrativo, solicita autenticacion y gestiona las opciones.
  * @param programa Puntero al programa.
  */
@@ -178,7 +230,8 @@ void menu_administrativo(Programa *programa) {
                     gestion_eventos(programa);
                     break;
                 case 4:
-                    printf("estado de evento\n");
+                    limpiar_consola();
+                    estado_evento_menu(programa);
                     break;
                 case 5:
                     limpiar_consola();
@@ -324,13 +377,13 @@ static void compra_de_boletos(Programa *programa) {
         return;
     }
 
-    Asiento *asientos_comprados[256];
+    Asiento **asientos_comprados = NULL;
     int cantidad_comprados = 0;
     char numero_asiento_buscado[LARGO_MAXIMO_CARACTERES];
 
     printf("Ingrese el numero de asiento a comprar (Enter para terminar):\n");
     while (1) {
-        printf("  Asiento(): ");
+        printf("  Asiento(Enter para finalizar compra): ");
         leer_cadena(numero_asiento_buscado, sizeof(numero_asiento_buscado));
         if (numero_asiento_buscado[0] == '\0') break;
 
@@ -349,7 +402,6 @@ static void compra_de_boletos(Programa *programa) {
             continue;
         }
 
-
         int ya_seleccionado = 0;
         for (int i = 0; i < cantidad_comprados; i++) {
             if (asientos_comprados[i] == asiento_encontrado) { ya_seleccionado = 1; break; }
@@ -359,11 +411,19 @@ static void compra_de_boletos(Programa *programa) {
             continue;
         }
 
+        Asiento **temp = realloc(asientos_comprados, (cantidad_comprados + 1) * sizeof(Asiento *));
+        if (temp == NULL) {
+            printf("Error de memoria.\n");
+            free(asientos_comprados);
+            return;
+        }
+        asientos_comprados = temp;
         asientos_comprados[cantidad_comprados++] = asiento_encontrado;
         printf("  Asiento '%s' agregado.\n", numero_asiento_buscado);
     }
 
     if (cantidad_comprados == 0) {
+        free(asientos_comprados);
         printf("No se seleccionaron asientos. Operacion cancelada.\n");
         return;
     }
@@ -381,14 +441,12 @@ static void compra_de_boletos(Programa *programa) {
         vender_asiento(asientos_comprados[i]);
     }
 
-    /* Construir ListaAsientos temporal para crear_factura */
     ListaAsientos lista_asientos_factura = crear_lista_asientos_vacia();
     for (int i = 0; i < cantidad_comprados; i++) {
         Asiento copia_asiento = crear_asiento(asientos_comprados[i]->numero_asiento);
         agregar_asiento_a_lista(&lista_asientos_factura, &copia_asiento);
     }
 
-    /* Fecha del sistema como fecha de compra */
     time_t tiempo_actual = time(NULL);
     struct tm *fecha_sistema = localtime(&tiempo_actual);
     Fecha fecha_compra = crear_fecha(fecha_sistema->tm_mday, fecha_sistema->tm_mon + 1, fecha_sistema->tm_year + 1900);
@@ -399,6 +457,7 @@ static void compra_de_boletos(Programa *programa) {
     limpiar_consola();
     mostrar_factura(&factura);
 
+    free(asientos_comprados);
     agregar_factura(&programa->facturas, &factura);
     printf("\nPresione Enter para continuar...");
     getchar();
