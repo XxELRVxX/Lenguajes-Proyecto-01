@@ -52,4 +52,16 @@ void mostrar_sitio(const Sitio *sitio);
  */
 int contar_asientos_sitio(const Sitio *sitio);
 
+/**
+ * @brief Edita los campos de un sitio existente.
+ * @details Campos vacios (cadena vacia) conservan su valor actual.
+ *          Pasar NULL en sitio_web elimina el sitio web existente.
+ * @param sitio Puntero al sitio a editar.
+ * @param nuevo_nombre Nuevo nombre, o cadena vacia para no cambiar.
+ * @param nueva_ubicacion Nueva ubicacion, o cadena vacia para no cambiar.
+ * @param nuevo_sitio_web Nuevo sitio web, NULL para eliminar, cadena vacia para no cambiar.
+ */
+void editar_sitio(Sitio *sitio, const char *nuevo_nombre,
+                  const char *nueva_ubicacion, const char *nuevo_sitio_web);
+
 #endif //SITIO_H

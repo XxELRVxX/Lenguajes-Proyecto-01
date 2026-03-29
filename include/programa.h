@@ -12,6 +12,7 @@
 #include "cargar_guardar.h"
 #include "usuario.h"
 #include "config.h"
+#include "ui.h"
 
 /**
  * @struct Programa
@@ -70,21 +71,35 @@ void menu_administrativo(Programa *programa);
 void menu_general(Programa *programa);
 
 /**
- * @brief Lee una opcion numerica del usuario desde el teclado.
- * @return Opcion leida, o 0 si la entrada no es un numero valido.
+ * @brief Muestra el submenu de gestion de sitios de eventos.
+ * @param programa Puntero al programa.
  */
-int leer_opcion();
+void gestion_sitios(Programa *programa);
 
 /**
- * @brief Lee una cadena de caracteres desde stdin.
- * @param buffer Buffer donde se almacenara la cadena leida.
- * @param largo_cadena tamaño maximo del buffer.
+ * @brief Muestra el submenu de gestion de sectores de sitios de eventos.
+ * @param programa Puntero al programa.
  */
-void leer_cadena(char *buffer, int largo_cadena);
+void gestion_sectores(Programa *programa);
 
 /**
- * @brief Limpia la consola. Compatible con Windows y Linux.
+ * @brief Muestra el submenu de gestion de eventos.
+ * @param programa Puntero al programa.
  */
-void limpiar_consola();
+void gestion_eventos(Programa *programa);
 
-#endif //PROGRAMA_H
+/**
+ * @brief Revalida los punteros Factura.evento tras un realloc en lista_eventos.
+ * @details Debe llamarse despues de cualquier agregar_evento exitoso.
+ * @param programa Puntero al programa.
+ */
+void revalidar_punteros_eventos(Programa *programa);
+
+/**
+ * @brief Revalida los punteros Evento.sitio tras un realloc en lista_sitios.
+ * @details Debe llamarse despues de cualquier agregar_sitio exitoso.
+ * @param programa Puntero al programa.
+ */
+void revalidar_punteros_sitios(Programa *programa);
+
+#endif /* PROGRAMA_H */

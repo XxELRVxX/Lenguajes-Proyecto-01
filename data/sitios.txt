@@ -1,1 +1,1 @@
-Estadio Nacional|San José|www.estadionacional.example,SECTOR|VIP|V|5,SECTOR|General|G|10
+Estadio Nacional|San José|estadiosupernacional.com,SECTOR|VIP|V|5,SECTOR|General|G|10

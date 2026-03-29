@@ -51,17 +51,25 @@ Factura crear_factura(Evento *evento, const Fecha *fecha_compra,
  * @param factura Puntero constante a la factura.
  */
 void mostrar_factura(const Factura *factura) {
-    printf("Factura #%d\n", factura->id);
-    printf("Fecha de compra: %02d/%02d/%04d\n", factura->fecha_compra.dia, factura->fecha_compra.mes, factura->fecha_compra.anio);
-    printf("Cliente: %s (%s)\n", factura->cliente_nombre, factura->cliente_cedula);
-    printf("Evento: %s | Productora: %s | Sitio: %s\n", factura->evento->nombre_evento, factura->evento->productora, factura->evento->sitio->nombre);
-    printf("Detalle de asientos:\n");
+    printf("+-------------------------------------------------+\n");
+    printf("  Factura #%d\n", factura->id);
+    printf("  Fecha de compra : %02d/%02d/%04d\n",
+           factura->fecha_compra.dia, factura->fecha_compra.mes, factura->fecha_compra.anio);
+    printf("  Cliente         : %s (%s)\n",
+           factura->cliente_nombre, factura->cliente_cedula);
+    printf("  Evento          : %s\n", factura->evento->nombre_evento);
+    printf("  Productora      : %s\n", factura->evento->productora);
+    printf("  Sitio           : %s\n", factura->evento->sitio->nombre);
+    printf("  Asientos:\n");
     for (int i = 0; i < factura->cantidad_asientos; i++) {
-        printf("  %s -> %.2f\n", factura->asientos[i].numero_asiento, factura->asientos[i].costo);
+        printf("    Asiento : %s  $%.2f\n",
+               factura->asientos[i].numero_asiento, factura->asientos[i].costo);
     }
-    printf("Subtotal: %.2f\n", factura->subtotal);
-    printf("Costo de servicio (5%%): %.2f\n", factura->costo_servicio);
-    printf("Total: %.2f\n", factura->total);
+    printf("  -----------------------------------------------\n");
+    printf("  Subtotal        : $%.2f\n", factura->subtotal);
+    printf("  Costo servicio  : $%.2f (5%%)\n", factura->costo_servicio);
+    printf("  Total           : $%.2f\n", factura->total);
+    printf("+-------------------------------------------------+\n");
 }
 
 /**
@@ -85,4 +93,14 @@ void liberar_factura(Factura *factura) {
     factura->costo_servicio = 0.0f;
     factura->total = 0.0f;
     factura->evento = NULL;
+}
+
+/**
+ * @brief Sincroniza el contador global de ids con el valor correcto.
+ * @param max_id El ID mas alto conocido.
+ */
+void sincronizar_factura_id(int max_id) {
+    if (max_id >= factura_id_global) {
+        factura_id_global = max_id + 1;
+    }
 }

@@ -1,6 +1,6 @@
 #include "../include/programa.h"
 
-int main(void) {
+int main() {
     Programa programa = crear_programa();
     cargar_programa(&programa);
     ejecutar_programa(&programa);

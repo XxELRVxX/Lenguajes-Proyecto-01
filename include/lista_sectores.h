@@ -63,4 +63,12 @@ void mostrar_lista_sectores(const ListaSectores *lista);
  */
 void resetear_lista_sectores(ListaSectores *lista);
 
+/**
+ * @brief Elimina un sector de la lista por nombre.
+ * @param lista Puntero a la lista de sectores.
+ * @param nombre_sector Nombre del sector a eliminar.
+ * @return Codigo de exito o error.
+ */
+int eliminar_sector(ListaSectores *lista, const char *nombre_sector);
+
 #endif

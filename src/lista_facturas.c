@@ -57,13 +57,19 @@ void mostrar_lista_facturas(const ListaFacturas *lista_facturas) {
         printf("No hay facturas registradas.\n");
         return;
     }
-    printf("Lista de facturas (%d):\n", lista_facturas->cantidad_facturas);
+    printf("==== Lista de Facturas (%d) ====\n", lista_facturas->cantidad_facturas);
     for (int i = 0; i < lista_facturas->cantidad_facturas; i++) {
-        Factura *f = &lista_facturas->facturas[i];
-        printf("Factura #%d | Evento: %s | Fecha: %02d/%02d/%04d | Cliente: %s | Subtotal: %.2f\n",
-               f->id, f->evento->nombre_evento,
-               f->fecha_compra.dia, f->fecha_compra.mes, f->fecha_compra.anio,
-               f->cliente_nombre, f->subtotal);
+        const Factura *factura = &lista_facturas->facturas[i];
+        printf("  Factura #%d\n", factura->id);
+        printf("  Evento   : %s\n", factura->evento->nombre_evento);
+        printf("  Fecha    : %02d/%02d/%04d\n",
+               factura->fecha_compra.dia,
+               factura->fecha_compra.mes,
+               factura->fecha_compra.anio);
+        printf("  Cliente  : %s\n", factura->cliente_nombre);
+        printf("  Subtotal : $%.2f\n", factura->subtotal);
+        printf("  Total    : $%.2f\n", factura->subtotal);
+        printf("  ------------------------------\n");
     }
 }
 

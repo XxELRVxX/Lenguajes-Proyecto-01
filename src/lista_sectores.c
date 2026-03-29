@@ -88,3 +88,40 @@ void resetear_lista_sectores(ListaSectores *lista) {
         resetear_sector(&lista->sectores[i]);
     }
 }
+
+/**
+ * @brief Elimina un sector de la lista por nombre.
+ * @param lista Puntero a la lista de sectores.
+ * @param nombre_sector Nombre del sector a eliminar.
+ * @return Codigo de exito o error.
+ */
+int eliminar_sector(ListaSectores *lista, const char *nombre_sector) {
+    int indice = -1;
+    for (int i = 0; i < lista->cantidad_sectores; i++) {
+        if (strcmp(lista->sectores[i].nombre, nombre_sector) == 0) {
+            indice = i;
+            break;
+        }
+    }
+    if (indice == -1) {
+        return OPERACION_FALLIDA;
+    }
+
+    liberar_sector(&lista->sectores[indice]);
+    for (int i = indice; i < lista->cantidad_sectores - 1; i++) {
+        lista->sectores[i] = lista->sectores[i + 1];
+    }
+    lista->cantidad_sectores--;
+
+    if (lista->cantidad_sectores == 0) {
+        free(lista->sectores);
+        lista->sectores = NULL;
+    } else {
+        Sector *temp_lista_sectores = realloc(lista->sectores,
+                                              lista->cantidad_sectores * sizeof(Sector));
+        if (temp_lista_sectores != NULL) {
+            lista->sectores = temp_lista_sectores;
+        }
+    }
+    return OPERACION_EXITOSA;
+}
