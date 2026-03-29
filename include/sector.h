@@ -53,5 +53,12 @@ void resetear_sector(Sector *sector);
  */
 void mostrar_sector(const Sector *sector);
 
+/**
+ * @brief Edita el nombre de un sector existente.
+ * @details Cadena vacia conserva el valor actual.
+ * @param sector Puntero al sector a editar.
+ * @param nuevo_nombre Nuevo nombre, o cadena vacia para no cambiar.
+ */
+void editar_sector(Sector *sector, const char *nuevo_nombre);
 
 #endif //SECTOR_H

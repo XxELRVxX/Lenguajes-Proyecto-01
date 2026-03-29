@@ -637,5 +637,14 @@ int cargar_facturas(ListaFacturas *lista_facturas, const ListaEventos *lista_eve
         agregar_factura(lista_facturas, &nueva_factura);
     }
     fclose(archivo);
+
+    int max_id = 0;
+    for (int i = 0; i < lista_facturas->cantidad_facturas; i++) {
+        if (lista_facturas->facturas[i].id > max_id) {
+            max_id = lista_facturas->facturas[i].id;
+        }
+    }
+    sincronizar_factura_id(max_id);
+
     return OPERACION_EXITOSA;
 }

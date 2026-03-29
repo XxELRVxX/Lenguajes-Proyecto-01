@@ -52,7 +52,20 @@ void resetear_sector(Sector *sector) {
  * @param sector Puntero constante al sector.
  */
 void mostrar_sector(const Sector *sector) {
-    printf("Sector: %s | Inicial: %c | Cantidad de asientos: %d\n",
+    printf("  -Sector: %s | Inicial: %c | Cantidad de asientos: %d\n",
     sector->nombre, sector->inicial, sector->cantidad_asientos);
-    mostrar_lista_asientos(&sector->asientos);    
+      
+}
+
+/**
+ * @brief Edita el nombre de un sector existente.
+ * @param sector Puntero al sector a editar.
+ * @param nuevo_nombre Nuevo nombre, o cadena vacia para no cambiar.
+ */
+void editar_sector(Sector *sector, const char *nuevo_nombre) {
+    if (nuevo_nombre && nuevo_nombre[0] != '\0') {
+        free(sector->nombre);
+        sector->nombre = malloc(strlen(nuevo_nombre) + 1);
+        strcpy(sector->nombre, nuevo_nombre);
+    }
 }

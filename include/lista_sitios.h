@@ -50,17 +50,25 @@ void liberar_lista_sitios(ListaSitios *lista_sitios);
 Sitio *buscar_sitio(ListaSitios *lista_sitios, const char* nombre_sitio);
 
 /**
- * @brief Carga sitios desde un archivo.
+ * @brief Carga sitios desde un archivo en formato de lote (nombre,ubicacion[,web]).
  * @param lista_sitios Puntero a la lista de sitios.
  * @param ruta_archivo Ruta del archivo a cargar.
- * @return Numero de sitios cargados o error.
+ * @return OPERACION_EXITOSA o OPERACION_FALLIDA si no se puede abrir el archivo.
  */
-int cargar_sitios(ListaSitios *lista_sitios, const char *ruta_archivo);
+int cargar_sitios_por_lote(ListaSitios *lista_sitios, const char *ruta_archivo);
 
 /**
  * @brief Muestra la informacion de todos los sitios de la lista.
  * @param lista_sitios Puntero constante a la lista de sitios.
  */
 void mostrar_lista_sitios(const ListaSitios *lista_sitios);
+
+/**
+ * @brief Elimina un sitio de la lista por su nombre y libera su memoria.
+ * @param lista Puntero a la lista de sitios.
+ * @param nombre Nombre del sitio a eliminar.
+ * @return OPERACION_EXITOSA si se elimino, OPERACION_FALLIDA si no se encontro.
+ */
+int eliminar_sitio(ListaSitios *lista, const char *nombre);
 
 #endif //LISTA_SITIOS_H

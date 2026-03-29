@@ -22,7 +22,12 @@ ListaEventos crear_lista_eventos() {
  * @return Codigo de exito o error.
  */
 int agregar_evento(ListaEventos *lista_eventos, Evento *nuevo_evento) {
-    Evento *temp_lista_eventos = realloc(lista_eventos->eventos, (lista_eventos->cantidad_eventos + 1) * sizeof(Evento)); 
+    if (buscar_evento(lista_eventos, nuevo_evento->nombre_evento) != NULL) {
+        liberar_evento(nuevo_evento);
+        return OPERACION_FALLIDA_DUPLICADO;
+    }
+
+    Evento *temp_lista_eventos = realloc(lista_eventos->eventos, (lista_eventos->cantidad_eventos + 1) * sizeof(Evento));
     if (temp_lista_eventos == NULL) {
         return OPERACION_FALLIDA_MEMORIA;
     }

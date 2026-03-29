@@ -65,4 +65,11 @@ void mostrar_factura(const Factura *factura);
  */
 void liberar_factura(Factura *factura);
 
+/**
+ * @brief se asegura de que el id generado de la factura este sincronizado con el contador global
+ *  de IDs con el valor indicado.
+ * @param max_id el id mas alto que se encontro.
+ */
+void sincronizar_factura_id(int max_id);
+
 #endif // FACTURA_H

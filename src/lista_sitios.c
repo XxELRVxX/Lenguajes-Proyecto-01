@@ -111,6 +111,44 @@ int cargar_sitios_por_lote(ListaSitios *lista_sitios, const char *ruta_archivo) 
 }
 
 /**
+ * @brief Elimina un sitio de la lista por su nombre y libera su memoria.
+ * @param lista Puntero a la lista de sitios.
+ * @param nombre Nombre del sitio a eliminar.
+ * @return OPERACION_EXITOSA si se elimino, OPERACION_FALLIDA si no se encontro.
+ */
+int eliminar_sitio(ListaSitios *lista, const char *nombre) {
+    int indice = -1;
+    for (int i = 0; i < lista->cantidad; i++) {
+        if (strcmp(lista->sitios[i].nombre, nombre) == 0) {
+            indice = i;
+            break;
+        }
+    }
+    
+    if (indice == -1) {
+        return OPERACION_FALLIDA;
+    }
+
+    liberar_sitio(&lista->sitios[indice]);
+
+    for (int i = indice; i < lista->cantidad - 1; i++) {
+        lista->sitios[i] = lista->sitios[i + 1];
+    }
+    lista->cantidad--;
+
+    if (lista->cantidad == 0) {
+        free(lista->sitios);
+        lista->sitios = NULL;
+    } else {
+        Sitio *temp = realloc(lista->sitios, lista->cantidad * sizeof(Sitio));
+        if (temp != NULL) {
+            lista->sitios = temp;
+        }
+    }
+    return OPERACION_EXITOSA;
+}
+
+/**
  * @brief Muestra la informacion de todos los sitios de la lista.
  * @param lista_sitios Puntero constante a la lista de sitios.
  */
@@ -120,10 +158,8 @@ void mostrar_lista_sitios(const ListaSitios *lista_sitios) {
         return;
     }
 
-    printf("=== Lista de sitios ===\n");
     for (int i = 0; i < lista_sitios->cantidad; i++) {
-        Sitio *sitio = &lista_sitios->sitios[i];
-        printf("Sitio #%d:\n", i + 1);
-        mostrar_sitio(sitio);
+        printf("  %d) ", i + 1);
+        mostrar_sitio(&lista_sitios->sitios[i]);
     }
 }
